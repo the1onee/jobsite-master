@@ -1,0 +1,121 @@
+{% extends  'myview.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+            <!-- Navbar End -->
+
+            <!-- Page Header Start -->
+            <div class="container py-5 px-2 bg-primary">
+                <div class="row py-5 px-4">
+                    <div class="col-sm-6 text-center text-md-left">
+                        <h1 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold">Blog {{ mohmed.name }}</h1>
+                    </div>
+                    <div class="col-sm-6 text-center text-md-right">
+                        <div class="d-inline-flex pt-2">
+                            <h4 class="m-0 text-white"><a class="text-white" href="">Home</a></h4>
+                            <h4 class="m-0 text-white px-2">/</h4>
+                            <h4 class="m-0 text-white">Blog Detail</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Header End -->
+
+            <!-- Blog Detail Start -->
+            <div class="container py-5 px-2 bg-white">
+                <div class="row px-4">
+                    <div class="col-12">
+                         {%if blogs.img  %}
+                             <img class="img-fluid mb-4" src="{{blogs.img.url}}" alt="Image">
+                                     {% else %}
+                                        <img class="w-100 img-fluid mb-4" src="{% static 'images/admin.png'%}"alt="Image" width="50" height="60">
+
+                        {% endif %}
+
+                        <h2 class="mb-3 font-weight-bold">{{blogs.title}}</h2>
+                        <div class="d-flex">
+                            <p class="mr-3 text-muted"><i class="fa fa-calendar-alt"></i>{{blogs.created_on}}</p>
+                            <p class="mr-3 text-muted"><i class="fa fa-folder"></i> Web Design</p>
+                            <p class="mr-3 text-muted"><i class="fa fa-comments"></i> }}</p>
+                        </div>
+                        {{blogs.body|safe}}
+                          </div>
+                    <div class="col-12 py-4">
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                        <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
+                    </div>
+
+                    <div class="col-12 py-4">
+                        <h3 class="mb-4 font-weight-bold">3 Comments</h3>
+                        {% for comment in comm %}
+                        <div class="media mb-4">
+                            <img src="{% static 'images/about_img.jpg'%}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
+                            <div class="media-body">
+                                <li class="nav-item">
+                                <a href="http://127.0.0.1:8000/portfilocom/{{comment.slug}}" class=""><h3>{{ comment.name }}</h3> </a></li>
+
+                                <small><i> {{ comment.created_on }}</i></small></h4>
+                                <p>{{ comment.body | linebreaks }}
+                                </p>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+
+                   <div class="card-body">
+
+        <h3>Leave a comment</h3>
+        <form   class="form-group" method="post"  >
+          {{ comment_form| crispy   }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+
+      </div>
+
+
+                </div>
+            </div>
+            <!-- Blog Detail End -->
+
+            <!-- Footer Start -->
+             <div class="container-fluid py-4 px-sm-3 px-md-5" style="background: #111111;">
+        <p class="m-0 text-center">&copy; <a href="#">JobLink</a>. All Rights Reserved.
+
+		<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+		Design by <a href="https://Mohmed1.com">Mohmed Abdullah</a></p>
+    </div>
+            <!-- Footer End -->
+        </div>
+    </div>
+
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'portfilo//lib/easing/easing.min.js'%}"></script>
+        <script src="{% static 'portfilo/lib/waypoints/waypoints.min.js'%}"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+       <script src="{% static 'portfilo/js/main.js'%}"></script>
+
+{% endblock body %}

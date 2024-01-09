@@ -1,0 +1,57 @@
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="{% static 'post/style.css'%}" rel="stylesheet ">
+      <link rel="stylesheet" href="{% static 'edit/fonts/material-icon/css/material-design-iconic-font.min.css'%}">
+    <link rel="stylesheet" href="{% static 'edit/vendor/nouislider/nouislider.min.css'%}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'edit/css/style.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'edit/css/style.css'%}">
+    <link href="{% static 'post/style.css'%}" rel="stylesheet ">
+    <title>Title</title>
+</head>
+<body>
+ <form method="POST" id="signup-form" class="signup-form" action="">
+  {% csrf_token %}
+     <div class="form-row">
+         {{form.img}}
+
+         {{form.img.errors}}
+     </div>
+     <div class="form-row">
+         {{form.title}}
+
+         {{form.title.errors}}
+     </div>
+      <div class="form-row">
+
+         {{form.body}}
+
+         {{form.body.errors}}
+     </div>
+
+      <div class="form-row">
+         {{form.catag}}
+
+         {{form.catag.errors}}
+     </div>
+
+
+
+
+
+
+
+  <button type="submit" class="btn btn-success">Submit</button>
+  <a href="http://127.0.0.1:8000/index/{{post.slug}}" class="btn btn-danger">Back</a>
+</form>
+
+</body>
+</html>
