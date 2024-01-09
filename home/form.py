@@ -24,6 +24,10 @@ class CommentForm(ModelForm):
         model = Request
         fields = '__all__'
 
+class NewUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'

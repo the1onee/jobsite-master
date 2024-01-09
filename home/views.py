@@ -15,7 +15,7 @@ from django.views.generic import DetailView
 
 from . import form
 from .models import Request, Namecl, catagry, viewblogs, User, Mohmed, Comment, Startup
-from .form import CommentForm, numcom, numcilnt, NewUserForm, postmeta, MohmedForm
+from .form import CommentForm, numcom, numcilnt, NewUserForm, postmeta, MohmedForm,NewUserForm
 
 # Create your views here.
 User = get_user_model()
@@ -359,23 +359,22 @@ def viewblogread(ret,slug):
 
 
 
+
 def signup(request):
-    r=True
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-
             user = form.save()
-            user.is_name=True
+            user.is_name = True  # If needed, customize this based on your requirements
             user.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect('http://127.0.0.1:8000/index/'+str(request.user))
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render(request=request, template_name='login/sinup.html', context={"register_form": form})
-
-
+            return redirect('index')  # Replace 'index' with the actual name or URL of your homepage
+        else:
+            messages.error(request, "Unsuccessful registration. Invalid information.")
+    else:
+        form = NewUserForm()
+    return render(request, 'login/signup.html', {'form': form})
 def signup_com(request):
     r=True
     if request.method == "POST":
