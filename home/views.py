@@ -194,6 +194,8 @@ def viewblogforperson(ret,slug):
     else:
         mod = Startup.objects.get(slug=slug)
 
+    god=ret.user
+
 
 
 
@@ -206,6 +208,7 @@ def viewblogforperson(ret,slug):
         return render(ret, 'catgry/catforperson.html', {
         'mohmed': mod,
             'hi':retor,
+            'god':god,
                                           'blogs':view,})
     else:
         return render(ret, 'catgry/catforcom.html', {
