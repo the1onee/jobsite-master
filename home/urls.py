@@ -18,8 +18,6 @@ urlpatterns = [
     path('',views.viewblog, name='home'),
 path('home',views.viewblog, name='home'),
 
-path('portfilo/<slug:slug>/',views.viewportfilo, name='portfilo'),
-
 
 
 
@@ -34,7 +32,7 @@ path('blogcom/<slug:slug>/', views.viewblogforcomp, name='person'),
 
     #----------read plog
 path('readblog/<slug:slug>/', views.viewblogread, name='readblog'),
-path('readblogcom/<slug:slug>/', views.viewblogreadcom, name='readblogcom'),
+
 
 #----------404
 

@@ -84,7 +84,7 @@ def viewindex(ret,slug):
         postcom = viewblogs.objects.all().filter(author__is_company=True)
         userperson = Mohmed.objects.all()
         cat = catagry.objects.all()
-        num3 = ret.user.id
+        num3 = slug
         us = ["Ford", "Volvo", "BMW", "gfhgf", "Volvo", "BMW", "gfhgf"]
         company = viewblogs.objects.filter(author__is_company=True)
         companyy = Startup.objects.filter(name__in=['mrlon'])
@@ -96,7 +96,7 @@ def viewindex(ret,slug):
         postcom = viewblogs.objects.all().filter(author__is_company=True)
         userperson = Mohmed.objects.all()
         cat = catagry.objects.all()
-        num3 = "num1"
+        num3 = slug
         us = ["Ford", "Volvo", "BMW", "gfhgf", "Volvo", "BMW", "gfhgf"]
         company = Startup.objects.filter(name__in=['mrlon', 'ali'])
         companyy = Startup.objects.filter(name__in=['mrlon'])
@@ -321,9 +321,9 @@ def viewpostshre(ret,slug):
 def viewblogread(ret,slug):
 
     if ret.user.is_name == True:
-        porrt = Mohmed.objects.get(slug=slug)
+        porrt = Mohmed.objects.get(slug=ret.user)
     else:
-        porrt = Startup.objects.get(slug=slug)
+        porrt = Startup.objects.get(slug=ret.user)
     view =ret.user
 
     fom=viewblogs.objects.get(slug=slug)
@@ -351,6 +351,7 @@ def viewblogread(ret,slug):
                                             'blogs': fom,
                                             'comm': com,
                                             'hi':hi,
+                                            'view':view,
                                             'new_comment': new_comment,
                                             'comment_form': comment_form
                                               })
@@ -360,21 +361,44 @@ def viewblogread(ret,slug):
 
 
 
-def signup(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
+def signup(ret):
+    usee = User.objects.filter(is_name=True)
+    userrre = ret.user
+
+    postname = viewblogs.objects.all()
+    postcom = viewblogs.objects.all().filter(author__is_company=True)
+    userperson = Mohmed.objects.all()
+    cat = catagry.objects.all()
+    num3 = ret.user.id
+    us = ["Ford", "Volvo", "BMW", "gfhgf", "Volvo", "BMW", "gfhgf"]
+    company = viewblogs.objects.filter(author__is_company=True)
+    companyy = Startup.objects.filter(name__in=['mrlon'])
+
+
+
+    if ret.method == "POST":
+        form = NewUserForm(ret.POST)
         if form.is_valid():
             user = form.save()
             user.is_name = True  # If needed, customize this based on your requirements
             user.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect('index')  # Replace 'index' with the actual name or URL of your homepage
+            login(ret, user)
+            messages.success(ret, "Registration successful.")
+
+            return redirect('http://127.0.0.1:8000/index/'+str(ret.user), {'posts': postname,
+                                                       'postcom': postcom,
+                                                       'userperson': userperson,
+                                                       'cat': cat,
+                                                       'lastes': company,
+                                                       'lastess': companyy,
+                                                       'slug': num3,
+
+                                                       'users': userrre})  # Replace 'index' with the actual name or URL of your homepage
         else:
-            messages.error(request, "Unsuccessful registration. Invalid information.")
+            messages.error(ret, "Unsuccessful registration. Invalid information.")
     else:
         form = NewUserForm()
-    return render(request, 'login/signup.html', {'form': form})
+    return render(request=ret, template_name='login/sinup.html', context={"register_form": form})
 def signup_com(request):
     r=True
     if request.method == "POST":
